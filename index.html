@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🎂</title>
+    <style>
+        /* AESTHETIC DESIGN */
+        :root {
+            --primary-pink: #ffafbd;
+            --deep-pink: #ffc3a0;
+            --text-color: #5d5d5d;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial Rounded MT Bold', 'Helvetica', sans-serif;
+            background-color: #fff9f9;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            width: 100%;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink));
+            color: white;
+            text-align: center;
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .heart-icon {
+            font-size: 60px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* MESSAGE SECTION */
+        .message-box {
+            padding: 40px 25px;
+            max-width: 85%;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        /* PHOTO PLACEHOLDER */
+        .photo-frame {
+            width: 280px;
+            height: 280px;
+            background-color: #ddd;
+            border: 8px solid white;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* INTERACTIVE BUTTON */
+        .btn {
+            background: linear-gradient(to right, #ee9ca7, #ffdde1);
+            color: #7a4a4a;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(238, 156, 167, 0.4);
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        #surprise {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            border: 2px dashed #ee9ca7;
+            display: none;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            margin: 50px 0 20px;
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="heart-icon">💖</div>
+        <h1>Happy Birthday!</h1>
+        <p>To my favorite person in the world.</p>
+    </section>
+
+    <section class="photo-frame">
+        <img src="https://via.placeholder.com/300x300?text=Insert+Our+Photo+Here" alt="Us">
+    </section>
+
+    <section class="message-box">
+        <p>LDR isn't easy, but being with you makes every mile worth it. I'm so proud of everything you do, and I can't wait until we're celebrating together in person.</p>
+        
+        <button class="btn" onclick="revealSurprise()">Tap for a Surprise 🎁</button>
+
+        <div id="surprise">
+            <h3>My Promise to You:</h3>
+            <p>No matter the distance, I'm always just one call away. I love you more than all the lines of code I'll ever write! 💻💕</p>
+        </div>
+    </section>
+
+    <footer>
+        Made with ❤️ by Justin
+    </footer>
+
+    <script>
+        function revealSurprise() {
+            const surpriseDiv = document.getElementById('surprise');
+            surpriseDiv.style.display = 'block';
+            
+            // Add a little celebratory alert
+            setTimeout(() => {
+                alert("Happy Birthday, Beautiful! 🎉");
+            }, 300);
+        }
+    </script>
+</body>
+</html>
