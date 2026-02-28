@@ -12,6 +12,9 @@
             --stem-green: #4e7a4d;
             --leaf-green: #2d5a27;
             --text-brown: #5d4037;
+            --cookie-brown: #4e342e;
+            --light-cocoa: #6d4c41;
+            --buldak-red: #e53935;
         }
 
         * { box-sizing: border-box; }
@@ -56,18 +59,31 @@
             position: relative;
         }
 
-        /* --- CURVED STRIPE BACKGROUND ANIMATION --- */
+        /* --- PAGE 1 STRIPES --- */
         .hero-bg {
             background: repeating-linear-gradient(
                 45deg,
-                rgba(255, 182, 193, 0.2),
-                rgba(255, 182, 193, 0.2) 10px,
-                rgba(255, 240, 245, 0.2) 10px,
-                rgba(255, 240, 245, 0.2) 20px
+                rgba(255, 182, 193, 0.3),
+                rgba(255, 182, 193, 0.3) 10px,
+                rgba(255, 240, 245, 0.3) 10px,
+                rgba(255, 240, 245, 0.3) 20px
             );
             background-size: 200% 200%;
             animation: moveStripes 10s linear infinite;
-            border-radius: 0 0 50% 50% / 0 0 10% 10%; /* Makes the stripes feel "curved" at the edges */
+            border-bottom: 5px solid var(--deep-pink);
+            border-radius: 0 0 40px 40px;
+        }
+
+        /* --- PAGE 2 CHOCOLATE STRIPES (STATIC) --- */
+        .chocolate-bg {
+            background: repeating-linear-gradient(
+                45deg,
+                var(--cookie-brown),
+                var(--cookie-brown) 10px,
+                var(--light-cocoa) 10px,
+                var(--light-cocoa) 20px
+            );
+            color: #fff0f5; 
         }
 
         @keyframes moveStripes {
@@ -75,23 +91,24 @@
             100% { background-position: 100% 100%; }
         }
 
-        /* --- SECTION 1: THE FLOWER CIRCLE --- */
         .flower-frame {
             position: relative;
-            width: 260px; height: 260px;
-            margin: 30px 0;
+            width: 240px; height: 240px;
+            margin-bottom: 20px;
         }
 
         .petal-ring {
             position: absolute; width: 100%; height: 100%;
+            top: 0; left: 0;
             animation: spin 15s linear infinite;
+            z-index: 1;
         }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         .profile-pic {
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 170px; height: 170px;
+            width: 160px; height: 160px;
             border-radius: 50%;
             border: 8px solid white;
             object-fit: cover;
@@ -99,20 +116,137 @@
             z-index: 5;
         }
 
-        /* --- ICONS & COZY STYLE --- */
+        /* --- DUBAI MOCHI COOKIE STYLE --- */
+        .mochi-cookie {
+            width: 120px;
+            height: 100px;
+            background: #2a1b18; 
+            border: 2px solid gold;
+            border-radius: 50% 50% 45% 45%;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 10px 0 #1a0f0d, 0 15px 20px rgba(0,0,0,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .mochi-cookie:active {
+            transform: translateY(5px);
+            box-shadow: 0 5px 0 #1a0f0d, 0 10px 15px rgba(0,0,0,0.4);
+        }
+
+        .falling-cookie {
+            position: fixed;
+            top: -50px;
+            width: 40px;
+            height: 35px;
+            background: #3e2723;
+            border-radius: 50% 50% 45% 45%;
+            z-index: 999;
+            pointer-events: none;
+            animation: fall linear forwards;
+            border: 1px solid gold;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        .card-container {
+            perspective: 1000px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px; 
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
+            max-width: 320px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transform-origin: top;
+            transform: rotateX(-90deg);
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+        }
+
+        .card.open {
+            transform: rotateX(0deg);
+            opacity: 1;
+        }
+
+        /* --- BULDAK FLIP CARDS --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+            perspective: 1000px;
+        }
+
+        .flip-card {
+            width: 150px;
+            height: 200px;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-front, .flip-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .flip-front {
+            background-color: white;
+            color: var(--buldak-red);
+            border: 3px solid var(--buldak-red);
+            font-size: 0.9rem;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        .flip-back {
+            background-color: #000;
+            color: white;
+            transform: rotateY(180deg);
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .flip-back img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .floating { animation: float 3s ease-in-out infinite; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-        h1 { color: var(--accent-pink); font-size: 2.2rem; margin-bottom: 5px; }
-        .card {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 25px; border-radius: 25px;
-            backdrop-filter: blur(5px);
-            max-width: 320px;
-            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.3);
-            margin-bottom: 20px;
-        }
-
+        h1 { color: var(--accent-pink); font-size: 2.1rem; margin: 15px 0; line-height: 1.2; }
         .poem {
             font-style: italic;
             font-size: 0.95rem;
@@ -131,7 +265,7 @@
                     <path d="M50,140 Q80,100 65,50 Q50,90 50,140" fill="#3a6b34" />
                     <path d="M50,140 Q45,80 75,30" fill="none" stroke="var(--stem-green)" stroke-width="2" />
                     <path class="flower-bell" style="animation-delay: 0.5s;" d="M72,25 Q75,20 78,25 L81,32 Q75,35 69,32 Z" />
-                    <path class="flower-bell" style="animation-delay: 1s;" d="M62,45 Q65,40 68,45 L71,52 Q65,55 59,52 Z" />
+                    <path class="flower-bell" style="animation-delay: 1.0s;" d="M66,40 Q69,35 72,40 L75,47 Q69,50 63,47 Z" />
                 </g>
             </svg>
         </div>
@@ -141,21 +275,6 @@
     <div id="main-content">
         
         <section class="hero-bg">
-            <h1>HAPPY BIRTHDAYYY BABIIIIII 💖</h1>
-            
-            <div class="card">
-                <div class="poem">
-                    Like the Lily of the Valley, pure and white,<br>
-                    You bloom with a grace that is bold and bright.<br>
-                    But inside that flower is a spark, a fire—<br>
-                    A "ride or die" spirit that will never tire.<br><br>
-                    So energetic, so kulit, and sweet,<br>
-                    You make my world whole and my life complete.<br>
-                    My babiababi, so full of play,<br>
-                    I wish you the most energetic, best birthday!
-                </div>
-            </div>
-            
             <div class="flower-frame">
                 <svg class="petal-ring" viewBox="0 0 100 100">
                     <defs>
@@ -172,18 +291,78 @@
                 </svg>
                 <img src="her.JPG" class="profile-pic" alt="Birthday Girl">
             </div>
+
+            <h1>HAPPY BIRTHDAYYY BABIIIIII 💖</h1>
+            
+            <div class="card" style="transform: none; opacity: 1;"> 
+                <div class="poem">
+                    Like the Lily of the Valley, pure and white,<br>
+                    You bloom with a grace that is bold and bright.<br>
+                    But inside that flower is a spark, a fire—<br>
+                    A "ride or die" spirit that will never tire.<br><br>
+                    So energetic, so kulit, and sweet,<br>
+                    You make my world whole and my life complete.<br>
+                    My babiababi, so full of play,<br>
+                    I wish you the most energetic, best birthday!
+                </div>
+            </div>
         </section>
 
-        <section style="background-color: #fffaf0;">
-            <div class="floating" style="font-size: 80px;">🍪</div>
-            <h2>Sweetest Cravings</h2>
-            <p>One Dubai Chewy Cookie coming up! 🍫✨</p>
+        <section class="chocolate-bg">
+            <h2 style="color: #ffd700;">Sweetest Cravings</h2>
+            <p>Tap the Dubai Mochi Cookie! 🍫</p>
+            
+            <div class="mochi-cookie floating" onclick="triggerCookieMagic()">
+                <div style="color: gold; font-size: 10px;">✨ GOLD ✨</div>
+            </div>
+
+            <div class="card-container">
+                <div id="cookie-card" class="card">
+                    <div class="poem">
+                        A Dubai treat, so rich and rare,<br>
+                        With chocolate mochi beyond compare.<br>
+                        Soft and chewy, sweet through and through,<br>
+                        That’s exactly how I feel about you.<br><br>
+                        A premium heart, a soul made of gold,<br>
+                        The greatest story that’s ever been told.<br>
+                        You’re my favorite craving, my sugar, my prize,<br>
+                        With the brightest light reflecting in your eyes.
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section style="background-color: #fff5f5;">
-            <div class="floating" style="font-size: 80px;">🍜</div>
-            <h2 style="color: #e57373;">Spicy & Cozy</h2>
-            <p>Buldak nights are better with you 🔥</p>
+        <section style="background-color: #ffeb3b;">
+            <div class="floating" style="font-size: 60px;">🍜</div>
+            <h2 style="color: var(--buldak-red);">Spicy & Corny</h2>
+            <p style="color: #333; font-weight: bold;">Are you Buldak? Because you make my heart burn! 🥵<br><small>(Tap to flip the memories!)</small></p>
+
+            <div class="grid-container">
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">Are you 2x Spicy Buldak?</div>
+                        <div class="flip-back"><img src="1.jpg" alt="Memory 1"></div>
+                    </div>
+                </div>
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">Because one look at you and I’m sweating! 💦</div>
+                        <div class="flip-back"><img src="2.JPG" alt="Memory 2"></div>
+                    </div>
+                </div>
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">You're "Extra Hot," but I'll never get tired of the heat. 😉</div>
+                        <div class="flip-back"><img src="3.PNG" alt="Memory 3"></div>
+                    </div>
+                </div>
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">My babi, my spicy ride or die forever! 💖</div>
+                        <div class="flip-back"><img src="4.PNG" alt="Memory 4"></div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section style="background-color: #f3e5f5;">
@@ -196,6 +375,22 @@
     </div>
 
     <script>
+        function triggerCookieMagic() {
+            for(let i=0; i<15; i++) {
+                setTimeout(() => {
+                    const cookie = document.createElement('div');
+                    cookie.className = 'falling-cookie';
+                    cookie.style.left = Math.random() * 100 + 'vw';
+                    cookie.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                    cookie.style.opacity = Math.random();
+                    document.body.appendChild(cookie);
+                    setTimeout(() => cookie.remove(), 3000);
+                }, i * 100);
+            }
+            const card = document.getElementById('cookie-card');
+            card.classList.toggle('open');
+        }
+
         window.onload = () => {
             setTimeout(() => {
                 document.getElementById('loader').style.opacity = '0';
