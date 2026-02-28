@@ -3,158 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday! 🎂</title>
+    <title>Happy Birthday Babiii! 💖</title>
     <style>
-        /* AESTHETIC DESIGN */
         :root {
-            --primary-pink: #ffafbd;
-            --deep-pink: #ffc3a0;
-            --text-color: #5d5d5d;
+            --soft-pink: #fff0f5;
+            --deep-pink: #ffb6c1;
+            --accent-pink: #ff69b4;
+            --stem-green: #4e7a4d;
+            --leaf-green: #2d5a27;
+            --text-brown: #5d4037;
         }
 
-        body {
-            margin: 0;
-            padding: 0;
+        * { box-sizing: border-box; }
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--soft-pink);
+            color: var(--text-brown);
             font-family: 'Arial Rounded MT Bold', 'Helvetica', sans-serif;
-            background-color: #fff9f9;
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* HERO SECTION */
-        .hero {
-            width: 100%;
-            padding: 60px 20px;
-            background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink));
-            color: white;
+        /* --- 1. DETAILED LILY LOADER --- */
+        #loader {
+            position: fixed; inset: 0;
+            background: white;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease;
+        }
+
+        .lily-container { width: 200px; height: 300px; }
+        .plant-sway { animation: sway 4s ease-in-out infinite; transform-origin: bottom center; }
+        @keyframes sway { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+        
+        .flower-bell {
+            fill: white; stroke: #eee; stroke-width: 0.5;
+            opacity: 0; transform: scale(0);
+            animation: grow 1s ease-out forwards;
+        }
+        @keyframes grow { to { opacity: 1; transform: scale(1); } }
+
+        /* --- 2. MAIN LAYOUT --- */
+        #main-content { display: none; opacity: 0; transition: opacity 2s ease; }
+
+        section {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
             text-align: center;
-            border-bottom-left-radius: 50px;
-            border-bottom-right-radius: 50px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 40px 20px;
+            position: relative;
         }
 
-        .heart-icon {
-            font-size: 60px;
-            animation: pulse 1.5s infinite;
+        /* --- CURVED STRIPE BACKGROUND ANIMATION --- */
+        .hero-bg {
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255, 182, 193, 0.2),
+                rgba(255, 182, 193, 0.2) 10px,
+                rgba(255, 240, 245, 0.2) 10px,
+                rgba(255, 240, 245, 0.2) 20px
+            );
+            background-size: 200% 200%;
+            animation: moveStripes 10s linear infinite;
+            border-radius: 0 0 50% 50% / 0 0 10% 10%; /* Makes the stripes feel "curved" at the edges */
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
+        @keyframes moveStripes {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
         }
 
-        /* MESSAGE SECTION */
-        .message-box {
-            padding: 40px 25px;
-            max-width: 85%;
-            line-height: 1.6;
-            font-size: 1.1rem;
-            text-align: center;
+        /* --- SECTION 1: THE FLOWER CIRCLE --- */
+        .flower-frame {
+            position: relative;
+            width: 260px; height: 260px;
+            margin: 30px 0;
         }
 
-        /* PHOTO PLACEHOLDER */
-        .photo-frame {
-            width: 280px;
-            height: 280px;
-            background-color: #ddd;
+        .petal-ring {
+            position: absolute; width: 100%; height: 100%;
+            animation: spin 15s linear infinite;
+        }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .profile-pic {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 170px; height: 170px;
+            border-radius: 50%;
             border: 8px solid white;
-            border-radius: 20px;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 5;
         }
 
-        /* INTERACTIVE BUTTON */
-        .btn {
-            background: linear-gradient(to right, #ee9ca7, #ffdde1);
-            color: #7a4a4a;
-            border: none;
-            padding: 18px 40px;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(238, 156, 167, 0.4);
-            transition: 0.3s;
-            margin-top: 20px;
+        /* --- ICONS & COZY STYLE --- */
+        .floating { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        h1 { color: var(--accent-pink); font-size: 2.2rem; margin-bottom: 5px; }
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 25px; border-radius: 25px;
+            backdrop-filter: blur(5px);
+            max-width: 320px;
+            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.3);
+            margin-bottom: 20px;
         }
 
-        .btn:active {
-            transform: scale(0.95);
-        }
-
-        #surprise {
-            margin-top: 20px;
-            padding: 20px;
-            background: #fff;
-            border-radius: 15px;
-            border: 2px dashed #ee9ca7;
-            display: none;
-            animation: fadeIn 1s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        footer {
-            margin: 50px 0 20px;
-            font-size: 0.8rem;
-            opacity: 0.6;
+        .poem {
+            font-style: italic;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-brown);
         }
     </style>
 </head>
 <body>
 
-    <section class="hero">
-        <div class="heart-icon">💖</div>
-        <h1>Happy Birthday!</h1>
-        <p>To my favorite person in the world.</p>
-    </section>
-
-    <section class="photo-frame">
-        <img src="https://via.placeholder.com/300x300?text=Insert+Our+Photo+Here" alt="Us">
-    </section>
-
-    <section class="message-box">
-        <p>LDR isn't easy, but being with you makes every mile worth it. I'm so proud of everything you do, and I can't wait until we're celebrating together in person.</p>
-        
-        <button class="btn" onclick="revealSurprise()">Tap for a Surprise 🎁</button>
-
-        <div id="surprise">
-            <h3>My Promise to You:</h3>
-            <p>No matter the distance, I'm always just one call away. I love you more than all the lines of code I'll ever write! 💻💕</p>
+    <div id="loader">
+        <div class="lily-container">
+            <svg viewBox="0 0 100 150">
+                <g class="plant-sway">
+                    <path d="M50,140 Q20,100 35,40 Q50,80 50,140" fill="var(--leaf-green)" />
+                    <path d="M50,140 Q80,100 65,50 Q50,90 50,140" fill="#3a6b34" />
+                    <path d="M50,140 Q45,80 75,30" fill="none" stroke="var(--stem-green)" stroke-width="2" />
+                    <path class="flower-bell" style="animation-delay: 0.5s;" d="M72,25 Q75,20 78,25 L81,32 Q75,35 69,32 Z" />
+                    <path class="flower-bell" style="animation-delay: 1s;" d="M62,45 Q65,40 68,45 L71,52 Q65,55 59,52 Z" />
+                </g>
+            </svg>
         </div>
-    </section>
+        <p style="color: var(--leaf-green); font-weight: bold;">FOR YOU, BABI...</p>
+    </div>
 
-    <footer>
-        Made with ❤️ by Justin
-    </footer>
+    <div id="main-content">
+        
+        <section class="hero-bg">
+            <h1>HAPPY BIRTHDAYYY BABIIIIII 💖</h1>
+            
+            <div class="card">
+                <div class="poem">
+                    Like the Lily of the Valley, pure and white,<br>
+                    You bloom with a grace that is bold and bright.<br>
+                    But inside that flower is a spark, a fire—<br>
+                    A "ride or die" spirit that will never tire.<br><br>
+                    So energetic, so kulit, and sweet,<br>
+                    You make my world whole and my life complete.<br>
+                    My babiababi, so full of play,<br>
+                    I wish you the most energetic, best birthday!
+                </div>
+            </div>
+            
+            <div class="flower-frame">
+                <svg class="petal-ring" viewBox="0 0 100 100">
+                    <defs>
+                        <path id="petal" d="M50,50 Q60,30 50,10 Q40,30 50,50" fill="var(--deep-pink)" />
+                    </defs>
+                    <use href="#petal" transform="rotate(0 50 50)" />
+                    <use href="#petal" transform="rotate(45 50 50)" />
+                    <use href="#petal" transform="rotate(90 50 50)" />
+                    <use href="#petal" transform="rotate(135 50 50)" />
+                    <use href="#petal" transform="rotate(180 50 50)" />
+                    <use href="#petal" transform="rotate(225 50 50)" />
+                    <use href="#petal" transform="rotate(270 50 50)" />
+                    <use href="#petal" transform="rotate(315 50 50)" />
+                </svg>
+                <img src="her.JPG" class="profile-pic" alt="Birthday Girl">
+            </div>
+        </section>
+
+        <section style="background-color: #fffaf0;">
+            <div class="floating" style="font-size: 80px;">🍪</div>
+            <h2>Sweetest Cravings</h2>
+            <p>One Dubai Chewy Cookie coming up! 🍫✨</p>
+        </section>
+
+        <section style="background-color: #fff5f5;">
+            <div class="floating" style="font-size: 80px;">🍜</div>
+            <h2 style="color: #e57373;">Spicy & Cozy</h2>
+            <p>Buldak nights are better with you 🔥</p>
+        </section>
+
+        <section style="background-color: #f3e5f5;">
+            <div class="floating" style="font-size: 80px;">🪄</div>
+            <h2 style="color: #9575cd;">You're Pure Magic</h2>
+            <p>Always my favorite witch in the Wizarding World ⚡🦉</p>
+            <p style="margin-top: 50px; font-size: 0.8rem; opacity: 0.5;">Made with ❤️ by Justin</p>
+        </section>
+
+    </div>
 
     <script>
-        function revealSurprise() {
-            const surpriseDiv = document.getElementById('surprise');
-            surpriseDiv.style.display = 'block';
-            
-            // Add a little celebratory alert
+        window.onload = () => {
             setTimeout(() => {
-                alert("Happy Birthday, Beautiful! 🎉");
-            }, 300);
-        }
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                    const main = document.getElementById('main-content');
+                    main.style.display = 'block';
+                    setTimeout(() => { main.style.opacity = '1'; }, 50);
+                }, 1000);
+            }, 5000);
+        };
     </script>
 </body>
 </html>
